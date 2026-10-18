@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VERTEX AXIOMA® - Digesto 4.0 & Inmutabilidad Normativa</title>
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --panel-bg: #111827;
+            --border-color: #1f2937;
+            --accent-cyan: #06b6d4;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Navigation */
+        aside {
+            width: 260px;
+            background-color: var(--panel-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+        }
+
+        .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #ffffff;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand span {
+            color: var(--accent-cyan);
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+        }
+
+        /* Highlighted Digesto 4.0 Button */
+        .nav-item.active-digesto {
+            background: linear-gradient(135deg, rgba(6, 182, 212, 0.2), rgba(59, 130, 246, 0.2));
+            border: 1px solid var(--accent-cyan);
+            color: #ffffff;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+        }
+
+        /* Main Workspace */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+        }
+
+        .header-title h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .header-title p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        .status-badge {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 0.4rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .status-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .content-area {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        /* Cards and Panels */
+        .card {
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Protocol Ingestion Form */
+        .ingest-box {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group input, .input-group select, .input-group textarea {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .btn-petrify {
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            color: #ffffff;
+            border: none;
+            padding: 0.85rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-petrify:hover {
+            opacity: 0.9;
+        }
+
+        /* Live Ledger Table */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.85rem;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.02);
+            padding: 0.75rem 1rem;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hash-code {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--accent-cyan);
+            background-color: rgba(6, 182, 212, 0.08);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.8rem;
+        }
+
+        /* AI Structure Preview Panel */
+        .ai-panel {
+            background: linear-gradient(180deg, var(--panel-bg), rgba(17, 24, 39, 0.5));
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .ai-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem 0;
+            border-bottom: 1px dashed var(--border-color);
+            font-size: 0.85rem;
+        }
+
+        .ai-step-num {
+            background-color: var(--accent-blue);
+            color: #fff;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar con el nuevo Botón Digesto 4.0 -->
+    <aside>
+        <div class="brand">
+            <span>VERTEX</span> AXIOMA®
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">📊 Dashboard General</li>
+            <li class="nav-item">⚖️ Auditoría 4.0</li>
+            <li class="nav-item active-digesto">
+                📜 Digesto 4.0
+            </li>
+            <li class="nav-item">🛡️ Prueba Petrificada</li>
+            <li class="nav-item">🛰️ Telemetría & IoT</li>
+            <li class="nav-item">⚙️ Configuración Nodo</li>
+        </ul>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main>
+        <header>
+            <div class="header-title">
+                <h1>Digesto 4.0 & Inmutabilidad de Protocolos</h1>
+                <p>Módulo de Petrificación Normativa y Estructuración de Protocolos Operativos para Lectura por IA</p>
+            </div>
+            <div class="status-badge">
+                Nodo Inmutable Activo
+            </div>
+        </header>
+
+        <div class="content-area">
+            <!-- Columna Principal: Registro y Carga -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <!-- Card 1: Ingesta Normativa y Protocolar -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>Ingresar Norma o Protocolo Técnico</span>
+                        <span style="font-size: 0.75rem; color: var(--accent-cyan);">Sello de Inmutabilidad Transfronteriza</span>
+                    </div>
+                    <form class="ingest-box" onsubmit="event.preventDefault();">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="input-group">
+                                <label>Tipo de Documento</label>
+                                <select>
+                                    <option>Ordenanza Municipal</option>
+                                    <option selected>Protocolo Técnico Operativo</option>
+                                    <option>Decreto / Edicto</option>
+                                    <option>Manual de Bioseguridad / Salud</option>
+                                    <option>Guía Mantenimiento Energético</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Jurisdicción / Organismo Emisor</label>
+                                <input type="text" value="H. Concejo Deliberante / Centro Médico">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Título / Identificador de la Norma o Protocolo</label>
+                            <input type="text" value="Protocolo Técnico de Higiene y Esterilización de Robot Quirúrgico v4">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Contenido del Protocolo / Pasos de Chequeo</label>
+                            <textarea rows="3">1. Desconexión de flujo térmico. 2. Purga de conductos hidráulicos con solución sanitizante. 3. Verificación de sensores de presión de brazo robótico. 4. Firma digital del operario responsable.</textarea>
+                        </div>
+
+                        <button class="btn-petrify">Petrificar Registro y Asignar Hash de Origen</button>
+                    </form>
+                </div>
+
+                <!-- Card 2: Registro Inmutable (Digesto Live Ledger) -->
+                <div class="card">
+                    <div class="card-title">
+                        <span>Registro de Normas y Protocolos Petrificados</span>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Norma / Protocolo</th>
+                                    <th>Categoría</th>
+                                    <th>Emisor</th>
+                                    <th>Hash de Origen (DNA Digital)</th>
+                                    <th>Estado IA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Ord. 8940/26 - Mantenimiento Digital de Edificios</td>
+                                    <td>Ordenanza Municipal</td>
+                                    <td>HCD Morón</td>
+                                    <td><span class="hash-code">0xa8f3...b912</span></td>
+                                    <td style="color: var(--accent-green);">Estructurado</td>
+                                </tr>
+                                <tr>
+                                    <td>Protocolo Quirúrgico Robótico v4</td>
+                                    <td>Técnico / Salud</td>
+                                    <td>Clínica Favaloro</td>
+                                    <td><span class="hash-code">0x7c9e...e401</span></td>
+                                    <td style="color: var(--accent-green);">Estructurado</td>
+                                </tr>
+                                <tr>
+                                    <td>Guía de Tránsito y Telemetría Industrial</td>
+                                    <td>Energía / Logística</td>
+                                    <td>Nodo Vertex</td>
+                                    <td><span class="hash-code">0x3d12...f884</span></td>
+                                    <td style="color: var(--accent-green);">Estructurado</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Columna Secundaria: Parseo e Inteligencia Artificial -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <div class="card ai-panel">
+                    <div class="card-title" style="color: var(--accent-cyan);">
+                        <span>🤖 Parseo & Control IA</span>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;">
+                        La IA convierte el documento petrificado en reglas de auditoría automática en tiempo real.
+                    </p>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                        <div class="ai-step">
+                            <div class="ai-step-num">1</div>
+                            <div>
+                                <strong>Verificación del Hash</strong>
+                                <p style="font-size: 0.75rem; color: var(--text-muted);">Inmutabilidad confirmada sin alteraciones de texto.</p>
+                            </div>
+                        </div>
+
+                        <div class="ai-step">
+                            <div class="ai-step-num">2</div>
+                            <div>
+                                <strong>Extracción de Lista de Chequeo</strong>
+                                <p style="font-size: 0.75rem; color: var(--text-muted);">4 parámetros críticos identificados para auditoría de campo.</p>
+                            </div>
+                        </div>
+
+                        <div class="ai-step">
+                            <div class="ai-step-num">3</div>
+                            <div>
+                                <strong>Monitoreo de Conformidad</strong>
+                                <p style="font-size: 0.75rem; color: var(--text-muted);">Cualquier desvío en la ejecución generará alerta forense.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 1.5rem; padding: 0.75rem; background-color: rgba(6, 182, 212, 0.05); border-radius: 0.5rem; border: 1px solid rgba(6, 182, 212, 0.2);">
+                        <span style="font-size: 0.75rem; color: var(--accent-cyan); font-weight: 600;">Regla Activa:</span>
+                        <p style="font-size: 0.8rem; color: var(--text-main); margin-top: 0.25rem;">
+                            Si el mantenimiento no registra telemetría firmada cada 180 días, se suspende la certificación automáticamente.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
